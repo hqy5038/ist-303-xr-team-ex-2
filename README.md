@@ -27,7 +27,7 @@ Task #; Description;	Assigned;	Solution
 
 5;	DONE: Make timer seconds more readable (e.g. one digit);	TREVOR;	Round function to single digit
 
-6;	Combine concurrent functions into one;	HJ;	One "concurrent" function with new parameter "Thread" or "Process". Based on that, make a call to the Process or Thread executor.
+6;	Add error handling for the string;	HJ;	We'll just add a try/catch in case or error.
 
 7;	Create helper function for timer instead of duplicating output;	HJ;	New helper function
 
