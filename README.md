@@ -23,7 +23,7 @@ Task #; Description;	Assigned;	Solution
 
 3;	DONE: (New) Put generated files into a "wiki_dl" folder;	TREVOR;	Add "/wiki_dl" to file path
 
-4;	Fix the Concurrent Process function which doesn't seem to return results;	HJ;	Checked task manager, polling every second but function is sub-second, so can't see whether traffic is going to wikipedia site
+4;	NOT DONE; Fix the Concurrent Process function which doesn't seem to return results;	HJ;	Checked task manager, polling every second but function is sub-second, so can't see whether traffic is going to wikipedia site. Tested for 'resource exhaustion' and there is plenty of CPU capacity & memory left... no errors... simply can't see why no files are returned.
 
 5;	DONE: Make timer seconds more readable (e.g. one digit);	TREVOR;	Round function to single digit
 
