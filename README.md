@@ -1,5 +1,8 @@
 # ist-303-xr-team-ex-2
 
+Team reviewed the code and independently found some improvements, self-assigned tasks and using git hub we implemented the changes.
+Assignments listed below under Tasks.
+
 **Issues found**
 
 	• Concurrent_Process function doesn't seem to write any files; the other two functions work
@@ -26,4 +29,6 @@ Task #; Description;	Assigned;	Solution
 6;	Combine concurrent functions into one;	_____;	One "concurrent" function with new parameter "Thread" or "Process". Based on that, make a call to the Process or Thread executor.
 
 7;	Create helper function for timer instead of duplicating output;	_____;	New helper function
+
+8;	Create wiki_dl sub folder if it doesn't exist; _____;  Call file.open parameter or option
 
