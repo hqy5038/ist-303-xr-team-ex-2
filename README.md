@@ -20,7 +20,7 @@ Task #; Description;	Assigned;	Solution
 
 2;	(New) Check for term too short; use original value as default;	MARCIE;	Check len() of string, default value if < 4
 
-3;	(New) Put generated files into a "wiki_dl" folder;	TREVOR;	Add "/wiki_dl" to file path
+3;	DONE: (New) Put generated files into a "wiki_dl" folder;	TREVOR;	Add "/wiki_dl" to file path
 
 4;	Fix the Concurrent Process function which doesn't seem to return results;	_____;	Checked task manager, polling every second but function is sub-second, so can't see whether traffic is going to wikipedia site
 
