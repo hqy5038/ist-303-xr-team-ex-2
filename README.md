@@ -15,3 +15,4 @@ Task #; Description;	Assigned;	Solution
 5;	Make timer seconds more readable (e.g. one digit);	_____;	Round function to single digit
 6;	Combine concurrent functions into one;	_____;	One "concurrent" function with new parameter "Thread" or "Process". Based on that, make a call to the Process or Thread executor.
 7;	Create helper function for timer instead of duplicating output;	_____;	New helper function
+
