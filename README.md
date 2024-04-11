@@ -31,5 +31,5 @@ Task #; Description;	Assigned;	Solution
 
 7;	Create helper function for timer instead of duplicating output;	_____;	New helper function
 
-8;	Create wiki_dl sub folder if it doesn't exist; _____;  Call file.open parameter or option
+8;	Create wiki_dl sub folder if it doesn't exist; TREVOR;  Call file.open parameter or option
 
