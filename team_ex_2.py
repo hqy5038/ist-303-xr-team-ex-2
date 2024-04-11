@@ -36,7 +36,7 @@ def wiki_sequentially():
 
   t_end = time.perf_counter()
   t_lapse = t_end - t_start
-  print(f'code executed in {t_lapse} seconds')
+  print(f'code executed in {round(t_lapse,1)} seconds')
 
 # IMPLEMENTATION 2: concurrent example w/ threads
 def concurrent_threads():
@@ -56,8 +56,8 @@ def concurrent_threads():
   print('\nthread pool function:')
 
   t_end = time.perf_counter()
-  t_lapse = t_end - t_start
-  print(f'code executed in {t_lapse} seconds')
+  t_lapse = round(t_end - t_start,1)
+  print(f'code executed in {round(t_lapse,1)} seconds')
 
 # IMPLEMENTATION 3: concurrent example w/ processes
 def concurrent_process():
@@ -78,7 +78,7 @@ def concurrent_process():
 
   t_end = time.perf_counter()
   t_lapse = t_end - t_start
-  print(f'code executed in {t_lapse} seconds')
+  print(f'code executed in {round(t_lapse,1)} seconds')
 
 if __name__ == "__main__":
   wiki_sequentially()
