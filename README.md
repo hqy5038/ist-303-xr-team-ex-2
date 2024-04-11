@@ -12,7 +12,7 @@ We collaborated "in person" (on Zoom call) in live conversation as we made chang
  
 	• Timer should be a helper function, not repeated
  
-	• Concurrent functions are nearly identical; combine them
+	• Need more error handling, also handle the issue (new reqt) where wiki_dl folder doesn't exist yet
 
 **Tasks**
 Task #; Description;	Assigned;	Solution
