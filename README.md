@@ -2,6 +2,7 @@
 
 Team reviewed the code and independently found some improvements, self-assigned tasks and using git hub we implemented the changes.
 Assignments listed below under Tasks.
+We collaborated "in person" (on Zoom call) in live conversation as we made changes.
 
 **Issues found**
 
@@ -24,7 +25,7 @@ Task #; Description;	Assigned;	Solution
 
 4;	Fix the Concurrent Process function which doesn't seem to return results;	_____;	Checked task manager, polling every second but function is sub-second, so can't see whether traffic is going to wikipedia site
 
-5;	Make timer seconds more readable (e.g. one digit);	TREVOR;	Round function to single digit
+5;	DONE: Make timer seconds more readable (e.g. one digit);	TREVOR;	Round function to single digit
 
 6;	Combine concurrent functions into one;	_____;	One "concurrent" function with new parameter "Thread" or "Process". Based on that, make a call to the Process or Thread executor.
 
