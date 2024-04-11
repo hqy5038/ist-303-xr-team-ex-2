@@ -7,6 +7,7 @@
 import time
 import wikipedia
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
+import os
 
 #convert objects produced by wikipedia package to a string var for saving to text file
 def convert_to_str(obj):
@@ -25,8 +26,11 @@ def wiki_sequentially():
     page = wikipedia.page(item, auto_suggest=False)
     title = page.title
     references = convert_to_str(page.references)
-    out_filename = "wiki_dl/" + title + ".txt"
-    with open(out_filename, 'wt') as fileobj:
+    subfolder = "wiki_dl"
+    if not os.path.exists(subfolder):
+      os.makedirs(subfolder)
+    out_filename = title + ".txt"
+    with open(subfolder + "/" + out_filename, 'wt') as fileobj:
       fileobj.write(references)
 
   for item in results:
@@ -47,8 +51,11 @@ def concurrent_threads():
     page = wikipedia.page(item, auto_suggest=False)
     title = page.title
     references = convert_to_str(page.references)
-    out_filename = "wiki_dl/" + title + ".txt"
-    with open(out_filename, 'wt') as fileobj:
+    subfolder = "wiki_dl"
+    if not os.path.exists(subfolder):
+      os.makedirs(subfolder)
+    out_filename = title + ".txt"
+    with open(subfolder + "/" + out_filename, 'wt') as fileobj:
       fileobj.write(references)
 
   with ThreadPoolExecutor() as executor:
@@ -68,8 +75,11 @@ def concurrent_process():
     page = wikipedia.page(item, auto_suggest=False)
     title = page.title
     references = convert_to_str(page.references)
-    out_filename = "wiki_dl/" + title + ".txt"
-    with open(out_filename, 'wt') as fileobj:
+    subfolder = "wiki_dl"
+    if not os.path.exists(subfolder):
+      os.makedirs(subfolder)
+    out_filename = title + ".txt"
+    with open(subfolder + "/" + out_filename, 'wt') as fileobj:
       fileobj.write(references)
 
   with ProcessPoolExecutor() as executor:
