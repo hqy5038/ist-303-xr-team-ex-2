@@ -43,17 +43,22 @@ def wiki_sequentially(search_term="general artificial intelligence"):
         except wikipedia.exceptions.DisambiguationError as e:
             print(f"DisambiguationError for '{item}', choosing first option '{e.options[0]}'")
             resolved_results.append(e.options[0])  # Choose the first option or implement other logic
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
 
     def dl_and_save(item):
-        page = wikipedia.page(item, auto_suggest=False)
-        title = page.title
-        references = convert_to_str(page.references)
-        subfolder = "wiki_dl"
-        if not os.path.exists(subfolder):
-            os.makedirs(subfolder)
-        out_filename = os.path.join(subfolder, title + ".txt")
-        with open(out_filename, 'wt') as fileobj:
-            fileobj.write(references)
+        try: 
+            page = wikipedia.page(item, auto_suggest=False)
+            title = page.title
+            references = convert_to_str(page.references)
+            subfolder = "wiki_dl"
+            if not os.path.exists(subfolder):
+              os.makedirs(subfolder)
+            out_filename = os.path.join(subfolder, title + ".txt")
+            with open(out_filename, 'wt') as fileobj:
+              fileobj.write(references)
+        except Exception as e:
+            print(f"Failed to save references for '{item}': {e}")
 
     for item in resolved_results:
         dl_and_save(item)
@@ -68,15 +73,18 @@ def concurrent_threads(search_term="general artificial intelligence"):
     results = wikipedia.search(search_term)
   
     def dl_and_save_thread(item):
-        page = wikipedia.page(item, auto_suggest=False)
-        title = page.title
-        references = convert_to_str(page.references)
-        subfolder = "wiki_dl"
-        if not os.path.exists(subfolder):
-            os.makedirs(subfolder)
-        out_filename = os.path.join(subfolder, title + ".txt")
-        with open(out_filename, 'wt') as fileobj:
-            fileobj.write(references)
+        try:
+            page = wikipedia.page(item, auto_suggest=False)
+            title = page.title
+            references = convert_to_str(page.references)
+            subfolder = "wiki_dl"
+            if not os.path.exists(subfolder):
+              os.makedirs(subfolder)
+            out_filename = os.path.join(subfolder, title + ".txt")
+            with open(out_filename, 'wt') as fileobj:
+              fileobj.write(references)
+        except Exception as e:
+          print(f"Error processing '{item}': {e}")
 
     with ThreadPoolExecutor() as executor:
         executor.map(dl_and_save_thread, results)
@@ -90,15 +98,18 @@ def concurrent_process(search_term="general artificial intelligence"):
     results = wikipedia.search(search_term)
   
     def dl_and_save_process(item):
-        page = wikipedia.page(item, auto_suggest=False)
-        title = page.title
-        references = convert_to_str(page.references)
-        subfolder = "wiki_dl"
-        if not os.path.exists(subfolder):
-            os.makedirs(subfolder)
-        out_filename = os.path.join(subfolder, title + ".txt")
-        with open(out_filename, 'wt') as fileobj:
-            fileobj.write(references)
+        try:
+            page = wikipedia.page(item, auto_suggest=False)
+            title = page.title
+            references = convert_to_str(page.references)
+            subfolder = "wiki_dl"
+            if not os.path.exists(subfolder):
+              os.makedirs(subfolder)
+            out_filename = os.path.join(subfolder, title + ".txt")
+            with open(out_filename, 'wt') as fileobj:
+              fileobj.write(references)
+        except Exception as e:
+            print(f"Error processing '{item}': {e}")          
 
     with ProcessPoolExecutor() as executor:
         executor.map(dl_and_save_process, results)
