@@ -9,88 +9,105 @@ import wikipedia
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 import os
 
-#convert objects produced by wikipedia package to a string var for saving to text file
-def convert_to_str(obj):
-  if type(obj) == list:
-    mystr = '\n'.join(obj)
-    return mystr
-  elif type(obj) in [str, int, float]:
-    return str(obj)
+def convert_to_str(page):
+    """
+    Convert the references of a Wikipedia page to a string.
+    If the page has no external links ('extlinks'), return a default message.
+    """
+    try:
+        if type(page) == list:
+            return '\n'.join(page)
+        elif hasattr(page, 'references'):
+            references = page.references
+            return '\n'.join(references)
+    except KeyError:
+        return "No external links available."
+    except Exception as e:
+        return f"An error occurred: {e}"
+    return str(page)
 
-# IMPLEMENTATION 1: sequential example
-def wiki_sequentially():
-  t_start = time.perf_counter()
-  results = wikipedia.search("general artificial intelligence")
+def validate_search_term(term):
+    """Validate the search term length, defaulting to 'generative artificial intelligence' if less than 4 characters."""
+    return term if len(term) >= 4 else "generative artificial intelligence"
+
+def wiki_sequentially(search_term="general artificial intelligence"):
+    search_term = validate_search_term(search_term)
+    t_start = time.perf_counter()
+    results = wikipedia.search(search_term)
+    
+    resolved_results = []
+    for item in results:
+        try:
+            page = wikipedia.page(item, auto_suggest=False)
+            resolved_results.append(item)  # Item is not a disambiguation page
+        except wikipedia.exceptions.DisambiguationError as e:
+            print(f"DisambiguationError for '{item}', choosing first option '{e.options[0]}'")
+            resolved_results.append(e.options[0])  # Choose the first option or implement other logic
+
+    def dl_and_save(item):
+        page = wikipedia.page(item, auto_suggest=False)
+        title = page.title
+        references = convert_to_str(page.references)
+        subfolder = "wiki_dl"
+        if not os.path.exists(subfolder):
+            os.makedirs(subfolder)
+        out_filename = os.path.join(subfolder, title + ".txt")
+        with open(out_filename, 'wt') as fileobj:
+            fileobj.write(references)
+
+    for item in resolved_results:
+        dl_and_save(item)
+
+    t_end = time.perf_counter()
+    print('\nsequential function:')
+    print(f'code executed in {round(t_end - t_start, 1)} seconds')
+
+def concurrent_threads(search_term="general artificial intelligence"):
+    search_term = validate_search_term(search_term)
+    t_start = time.perf_counter()
+    results = wikipedia.search(search_term)
   
-  def dl_and_save(item):
-    page = wikipedia.page(item, auto_suggest=False)
-    title = page.title
-    references = convert_to_str(page.references)
-    subfolder = "wiki_dl"
-    if not os.path.exists(subfolder):
-      os.makedirs(subfolder)
-    out_filename = title + ".txt"
-    with open(subfolder + "/" + out_filename, 'wt') as fileobj:
-      fileobj.write(references)
+    def dl_and_save_thread(item):
+        page = wikipedia.page(item, auto_suggest=False)
+        title = page.title
+        references = convert_to_str(page.references)
+        subfolder = "wiki_dl"
+        if not os.path.exists(subfolder):
+            os.makedirs(subfolder)
+        out_filename = os.path.join(subfolder, title + ".txt")
+        with open(out_filename, 'wt') as fileobj:
+            fileobj.write(references)
 
-  for item in results:
-    dl_and_save(item)
+    with ThreadPoolExecutor() as executor:
+        executor.map(dl_and_save_thread, results)
+    print('\nthread pool function:')
+    t_end = time.perf_counter()
+    print(f'code executed in {round(t_end - t_start, 1)} seconds')
 
-  print('\nsequential function:')
-
-  t_end = time.perf_counter()
-  t_lapse = t_end - t_start
-  print(f'code executed in {round(t_lapse,1)} seconds')
-
-# IMPLEMENTATION 2: concurrent example w/ threads
-def concurrent_threads():
-  t_start = time.perf_counter()
-  results = wikipedia.search("general artificial intelligence")
+def concurrent_process(search_term="general artificial intelligence"):
+    search_term = validate_search_term(search_term)
+    t_start = time.perf_counter()
+    results = wikipedia.search(search_term)
   
-  def dl_and_save_thread(item):
-    page = wikipedia.page(item, auto_suggest=False)
-    title = page.title
-    references = convert_to_str(page.references)
-    subfolder = "wiki_dl"
-    if not os.path.exists(subfolder):
-      os.makedirs(subfolder)
-    out_filename = title + ".txt"
-    with open(subfolder + "/" + out_filename, 'wt') as fileobj:
-      fileobj.write(references)
+    def dl_and_save_process(item):
+        page = wikipedia.page(item, auto_suggest=False)
+        title = page.title
+        references = convert_to_str(page.references)
+        subfolder = "wiki_dl"
+        if not os.path.exists(subfolder):
+            os.makedirs(subfolder)
+        out_filename = os.path.join(subfolder, title + ".txt")
+        with open(out_filename, 'wt') as fileobj:
+            fileobj.write(references)
 
-  with ThreadPoolExecutor() as executor:
-    executor.map(dl_and_save_thread, results)
-  print('\nthread pool function:')
-
-  t_end = time.perf_counter()
-  t_lapse = round(t_end - t_start,1)
-  print(f'code executed in {round(t_lapse,1)} seconds')
-
-# IMPLEMENTATION 3: concurrent example w/ processes
-def concurrent_process():
-  t_start = time.perf_counter()
-  results = wikipedia.search("general artificial intelligence")
-  
-  def dl_and_save_process(item):
-    page = wikipedia.page(item, auto_suggest=False)
-    title = page.title
-    references = convert_to_str(page.references)
-    subfolder = "wiki_dl"
-    if not os.path.exists(subfolder):
-      os.makedirs(subfolder)
-    out_filename = title + ".txt"
-    with open(subfolder + "/" + out_filename, 'wt') as fileobj:
-      fileobj.write(references)
-
-  with ProcessPoolExecutor() as executor:
-    executor.map(dl_and_save_process, results)
-  print('\nprocess pool function:')
-
-  t_end = time.perf_counter()
-  t_lapse = t_end - t_start
-  print(f'code executed in {round(t_lapse,1)} seconds')
+    with ProcessPoolExecutor() as executor:
+        executor.map(dl_and_save_process, results)
+    print('\nprocess pool function:')
+    t_end = time.perf_counter()
+    print(f'code executed in {round(t_end - t_start, 1)} seconds')
 
 if __name__ == "__main__":
-  wiki_sequentially()
-  concurrent_threads()
-  concurrent_process()
+    search_term = input("Enter search term: ")
+    wiki_sequentially(search_term)
+    concurrent_threads(search_term)
+    concurrent_process(search_term)
