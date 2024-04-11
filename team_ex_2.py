@@ -25,7 +25,7 @@ def wiki_sequentially():
     page = wikipedia.page(item, auto_suggest=False)
     title = page.title
     references = convert_to_str(page.references)
-    out_filename = title + ".txt"
+    out_filename = "wiki_dl/" + title + ".txt"
     with open(out_filename, 'wt') as fileobj:
       fileobj.write(references)
 
@@ -47,7 +47,7 @@ def concurrent_threads():
     page = wikipedia.page(item, auto_suggest=False)
     title = page.title
     references = convert_to_str(page.references)
-    out_filename = title + ".txt"
+    out_filename = "wiki_dl/" + title + ".txt"
     with open(out_filename, 'wt') as fileobj:
       fileobj.write(references)
 
@@ -68,7 +68,7 @@ def concurrent_process():
     page = wikipedia.page(item, auto_suggest=False)
     title = page.title
     references = convert_to_str(page.references)
-    out_filename = title + ".txt"
+    out_filename = "wiki_dl/" + title + ".txt"
     with open(out_filename, 'wt') as fileobj:
       fileobj.write(references)
 
