@@ -17,9 +17,9 @@ We collaborated "in person" (on Zoom call) in live conversation as we made chang
 **Tasks**
 Task #; Description;	Assigned;	Solution
 
-1;	(New) Search term should be parameter;	MARCIE;	Add parameter to each function
+1;	DONE: (New) Search term should be parameter;	MARCIE;	Add parameter to each function
 
-2;	(New) Check for term too short; use original value as default;	MARCIE;	Check len() of string, default value if < 4
+2;	DONE: (New) Check for term too short; use original value as default;	MARCIE;	Check len() of string, default value if < 4
 
 3;	DONE: (New) Put generated files into a "wiki_dl" folder;	TREVOR;	Add "/wiki_dl" to file path
 
