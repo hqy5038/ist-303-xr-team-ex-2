@@ -3,6 +3,7 @@
 Team reviewed the code and independently found some improvements, self-assigned tasks and using git hub we implemented the changes.
 Assignments listed below under Tasks.
 We collaborated "in person" (on Zoom call) in live conversation as we made changes.
+A couple issues would have needed more time; we opted to list the proposed solution and just complete the other tasks
 
 **Issues found**
 
@@ -27,9 +28,9 @@ Task #; Description;	Assigned;	Solution
 
 5;	DONE: Make timer seconds more readable (e.g. one digit);	TREVOR;	Round function to single digit
 
-6;	Add error handling for the string;	HJ;	We'll just add a try/catch in case or error.
+6;	DONE: Add error handling for the string;	HJ;	We'll just add a try/catch in case or error.
 
-7;	Create helper function for timer instead of duplicating output;	HJ;	New helper function
+7;	NOT DONE: Create helper function for timer instead of duplicating output;	HJ;	New helper function... we would create a new function with a parameter of the calling function and have it print to screen.
 
 8;	DONE: Create wiki_dl sub folder if it doesn't exist; TREVOR;  Call file.open parameter or option
 
